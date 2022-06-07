@@ -2945,12 +2945,12 @@ div.tocify {
 
 <h1 class="title toc-ignore">Job-Interview</h1>
 <h4 class="author">Pamela M. Chiroque-Solano</h4>
-<h4 class="date">2022-06-07 10:45:49</h4>
+<h4 class="date">2022-06-07 11:40:36</h4>
 
 </div>
 
 
-<p>This document was compiled on date 2022-06-07 10:45:49 by Pamela
+<p>This document was compiled on date 2022-06-07 11:40:36 by Pamela
 Solano for the job-interview.</p>
 <div id="modelling-infectious-diseases-sir-model" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Modelling Infectious
@@ -3159,12 +3159,14 @@ decimal places). How is the result to be interpreted?</p>
 <p>The Hardy-Weinberg law can be used under some circumstances to
 calculate genotype frequencies from allele frequences. Let A and B be
 two alleles at the same locus,</p>
-<p>p is the frequency of allele A 0 =&lt; p =&lt; 1 q is the frequency
-of allele B 0 =&lt; q =&lt; 1 and p + q = 1</p>
-<p>The frequencies of alleles <span class="math inline">\(F(A)\)</span>
-be called <span class="math inline">\(p\)</span>, and <span class="math inline">\(q\)</span> with <span class="math inline">\(0
+<ul>
+<li><p>p is the frequency of allele A 0 =&lt; p =&lt; 1</p></li>
+<li><p>q is the frequency of allele B 0 =&lt; q =&lt; 1 and p + q =
+1</p></li>
+<li><p>The frequencies of alleles <span class="math inline">\(F(A)\)</span> be called <span class="math inline">\(p\)</span>, and <span class="math inline">\(q\)</span> with <span class="math inline">\(0
 =&lt; [p,q] =&lt; 1\)</span> and <span class="math inline">\(p+q =
-1\)</span></p>
+1\)</span></p></li>
+</ul>
 <table>
 <thead>
 <tr class="header">
@@ -3239,7 +3241,7 @@ be called <span class="math inline">\(p\)</span>, and <span class="math inline">
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>q <span class="ot">=</span> R <span class="sc">+</span> H<span class="sc">/</span><span class="dv">2</span> </span></code></pre></div>
 <p>The frequency of allele A and B are <span class="math inline">\(p=\)</span> 0.506 and <span class="math inline">\(q=\)</span> 0.494, and <span class="math inline">\(p+q=\)</span> 1.</p>
-<p><strong>Some implications:</strong></p>
+<p><strong>Some implications using The Hardy-Weinberg law:</strong></p>
 <p>The distribution of allele frequencies is the same in men and women,
 i.e.: hommes <span class="math inline">\((p,q)\)</span> femmes <span class="math inline">\((p,q)\)</span></p>
 <p>if they procreate : <span class="math inline">\((p + q)^2 = p^2 + 2pq
@@ -3380,68 +3382,24 @@ significance level of <span class="math inline">\(\alpha =
 0.05\)</span>. <strong>We reject HWE, meaning that there likely was a
 disturbance in the equilibrium. It can be caused by a number of factors
 such as mutations, nonrandom mating or others.</strong></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>HW.test <span class="ot">&lt;-</span> <span class="fu">HWChisq</span>(x, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>HW.test</span></code></pre></div>
-<pre><code>## $chisq
-## [1] 1198.591
-## 
-## $pval
-## [1] 1.234711e-262
-## 
-## $D
-## [1] -1224.206
-## 
-## $p
-## [1] 0.4937
-## 
-## $f
-## [1] 0.2448801
-## 
-## $expected
-##       AA       AB       BB 
-## 4874.794 9998.412 5126.794 
-## 
-## $chi.contrib
-##       AA       AB       BB 
-## 307.1836 599.3227 292.0845</code></pre>
-<p>When verbose is set to FALSE (default) the test is silent, and
-HW.test is a list object containing the results of the test (chi-square
-statistic, the p value of the test, half the deviation from HWE (D) for
-the heterozygote <span class="math inline">\((D = \frac{1}{2}(f_{AB} −
-e_{AB})\)</span>, the minor allele frequency (p) and the inbreeding
-coefficient f). By default, HWChisq applies a continuity correction.
-This is not recommended for low minor allele frequencies. In order to
-perform a chi-square test without Yates’ continuity correction, it is
-necessary to set the cc parameter to zero:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>HW.test <span class="ot">&lt;-</span> <span class="fu">HWChisq</span>(x,<span class="at">cc=</span><span class="dv">0</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## Chi-square test for Hardy-Weinberg equilibrium (autosomal)
-## Chi2 =  1199.325 DF =  1 p-value =  8.548715e-263 D =  -1224.206 f =  0.2448801</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>HW.test</span></code></pre></div>
-<pre><code>## $chisq
-## [1] 1199.325
-## 
-## $pval
-## [1] 8.548715e-263
-## 
-## $D
-## [1] -1224.206
-## 
-## $p
-## [1] 0.4937
-## 
-## $f
-## [1] 0.2448801
-## 
-## $expected
-##       AA       AB       BB 
-## 4874.794 9998.412 5126.794 
-## 
-## $chi.contrib
-##       AA       AB       BB 
-## 307.4347 599.5675 292.3232</code></pre>
+<p>Note that the HWChisq applies the Yates’ continuity correction. This
+is not recommended for low minor allele frequencies.</p>
+<!-- ```{r, echo=TRUE, message=FALSE, warning=FALSE,cache.comments=FALSE} -->
+<!-- # Test -->
+<!-- HW.test <- HWChisq(x, verbose = FALSE) -->
+<!-- HW.test -->
+<!-- ``` -->
+<!-- When verbose is set to FALSE (default) the test is silent, and HW.test is -->
+<!-- a list object containing the results of the test (chi-square statistic, the p value of the test, -->
+<!-- half the deviation from HWE (D) for the heterozygote $(D = \frac{1}{2}(f_{AB} − e_{AB})$, the minor allele -->
+<!-- frequency (p) and the inbreeding coefficient f). By default, HWChisq applies a continuity -->
+<!-- correction. This is not recommended for low minor allele frequencies. In order to perform a -->
+<!-- chi-square test without Yates’ continuity correction, it is necessary to set the cc parameter -->
+<!-- to zero: -->
+<!-- ```{r, echo=TRUE, message=FALSE, warning=FALSE,cache.comments=FALSE} -->
+<!-- HW.test <- HWChisq(x,cc=0, verbose = TRUE) -->
+<!-- HW.test -->
+<!-- ``` -->
 </div>
 <div id="task-3-phenotype-asssociations" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Task 3: Phenotype
@@ -3477,26 +3435,26 @@ contains the SNP variables of class snp.</p>
 <p>In this case the association function automatically selects
 <strong>the error distribution of the regression analysis (either
 Gaussian)</strong>. In r,</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SNPassoc)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>myDat<span class="sc">%&gt;%</span>str</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SNPassoc)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>myDat<span class="sc">%&gt;%</span>str</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    20000 obs. of  4 variables:
 ##  $ id   : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ trait: num  70.3 61.2 61.8 64.4 70.5 ...
 ##  $ sex  : int  2 2 2 2 2 2 1 2 2 1 ...
 ##  $ SNP  : int  2 1 1 2 2 2 1 1 1 1 ...</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0 = AA; 1 = AB; 2 = BB</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>new <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(myDat<span class="sc">$</span>SNP)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(new) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A/A&quot;</span>,<span class="st">&quot;A/B&quot;</span>,<span class="st">&quot;B/B&quot;</span>)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>myDat<span class="sc">$</span>coded_snp<span class="ot">=</span> new</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">association</span>(trait <span class="sc">~</span> <span class="fu">snp</span>(coded_snp), myDat,<span class="at">model =</span> <span class="fu">c</span>(<span class="st">&quot;dominant&quot;</span>,<span class="st">&quot;log-additive&quot;</span>,<span class="st">&quot;recessive&quot;</span>)) </span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>fit_1</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0 = AA; 1 = AB; 2 = BB</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>new <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(myDat<span class="sc">$</span>SNP)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(new) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A/A&quot;</span>,<span class="st">&quot;A/B&quot;</span>,<span class="st">&quot;B/B&quot;</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>myDat<span class="sc">$</span>coded_snp<span class="ot">=</span> new</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">association</span>(trait <span class="sc">~</span> <span class="fu">snp</span>(coded_snp), myDat,<span class="at">model =</span> <span class="fu">c</span>(<span class="st">&quot;dominant&quot;</span>,<span class="st">&quot;log-additive&quot;</span>,<span class="st">&quot;recessive&quot;</span>)) </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>fit_1</span></code></pre></div>
 <pre><code>## 
 ## SNP: coded_snp  adjusted by: 
 ##                  n    me      se   dif lower upper p-value    AIC
@@ -3516,9 +3474,9 @@ IC95% is given by (4.756, 4.995) which does not contain 1.</p>
 Interaction</h2>
 <p>Test for a SNP-sex interaction using the genetic model determined in
 task 3. Visualize the result. How is the result to be interpreted?</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fit_2 <span class="ot">&lt;-</span> <span class="fu">association</span>(trait <span class="sc">~</span> <span class="fu">snp</span>(coded_snp)<span class="sc">*</span><span class="fu">as.factor</span>(sex), myDat,<span class="at">model =</span> <span class="fu">c</span>(<span class="st">&quot;log-additive&quot;</span>)) </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>fit_2</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fit_2 <span class="ot">&lt;-</span> <span class="fu">association</span>(trait <span class="sc">~</span> <span class="fu">snp</span>(coded_snp)<span class="sc">*</span><span class="fu">as.factor</span>(sex), myDat,<span class="at">model =</span> <span class="fu">c</span>(<span class="st">&quot;log-additive&quot;</span>)) </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>fit_2</span></code></pre></div>
 <pre><code>## 
 ##       SNP: coded_snp  adjusted by: 
 ##  Interaction 
